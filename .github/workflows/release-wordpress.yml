@@ -1,0 +1,47 @@
+name: Release WordPress plugin
+
+on:
+  push:
+    tags:
+      - '*'
+  pull_request:
+    paths:
+      - '.github/workflows/release-wordpress.yml'
+      - 'packages/cinder-wordpress/**'
+      - 'packages/cinder-php/**'
+
+permissions:
+  contents: write
+
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      # bin/build-zip installs Strauss itself in a clean build directory,
+      # so the package's dev dependencies (Pest etc.) are never resolved here.
+      - name: Build plugin zip
+        working-directory: packages/cinder-wordpress
+        run: |
+          chmod +x bin/build-zip
+          ./bin/build-zip
+
+      - name: Upload zip artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: cinder-wordpress-plugin
+          path: packages/cinder-wordpress/build/cinder.zip
+          if-no-files-found: error
+
+      - name: Attach to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2
+        with:
+          files: packages/cinder-wordpress/build/cinder.zip

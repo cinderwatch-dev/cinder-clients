@@ -1,0 +1,13 @@
+parameters:
+    level: 6
+    paths:
+        - packages/cinder-php/src
+        - packages/cinder-laravel/src
+        - packages/cinder-wordpress/src
+    scanFiles:
+        - vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+        - packages/cinder-laravel/tests/Fixtures/Stubs/horizon.php
+        - packages/cinder-laravel/tests/Fixtures/Stubs/livewire.php
+        - packages/cinder-laravel/tests/Fixtures/Stubs/saloon.php
+        - packages/cinder-wordpress/tests/Support/bootstrap.php
+        - packages/cinder-wordpress/tests/Fixtures/WP_CLI.php
