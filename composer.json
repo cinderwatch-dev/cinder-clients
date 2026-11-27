@@ -16,7 +16,7 @@
         "spatie/laravel-package-tools": "^1.92"
     },
     "require-dev": {
-        "guzzlehttp/guzzle": "^7.9",
+        "guzzlehttp/guzzle": "^8.6",
         "laravel/pint": "^1.24",
         "orchestra/testbench": "^9.0|^10.0|^11.0",
         "pestphp/pest": "^3.0|^4.0",
