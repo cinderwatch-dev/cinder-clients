@@ -1,0 +1,83 @@
+{
+    "name": "cinderwatch/cinder-clients",
+    "description": "Monorepo for Cinder client packages (PHP core + Laravel + WordPress adapters).",
+    "license": "MIT",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Rhys Lees",
+            "email": "43909932+RhysLees@users.noreply.github.com",
+            "homepage": "https://www.rhyslees.co.uk",
+            "role": "Software Engineer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "spatie/laravel-package-tools": "^1.92"
+    },
+    "require-dev": {
+        "guzzlehttp/guzzle": "^7.9",
+        "laravel/pint": "^1.24",
+        "orchestra/testbench": "^9.0|^10.0|^11.0",
+        "pestphp/pest": "^3.0|^4.0",
+        "pestphp/pest-plugin-laravel": "^3.0|^4.0",
+        "phpstan/phpstan": "^2.0",
+        "php-http/mock-client": "^1.6",
+        "nyholm/psr7": "^1.8",
+        "brain/monkey": "^2.6",
+        "php-stubs/wordpress-stubs": "^6.8",
+        "szepeviktor/phpstan-wordpress": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cinderwatch\\": "packages/cinder-php/src/",
+            "Cinderwatch\\Laravel\\": "packages/cinder-laravel/src/",
+            "Cinderwatch\\WordPress\\": "packages/cinder-wordpress/src/"
+        },
+        "files": [
+            "packages/cinder-wordpress/src/functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cinderwatch\\Tests\\": "packages/cinder-php/tests/",
+            "Cinderwatch\\Laravel\\Tests\\": "packages/cinder-laravel/tests/",
+            "Cinderwatch\\WordPress\\Tests\\": "packages/cinder-wordpress/tests/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/cinder-php"
+        },
+        {
+            "type": "path",
+            "url": "packages/cinder-laravel"
+        },
+        {
+            "type": "path",
+            "url": "packages/cinder-wordpress"
+        }
+    ],
+    "replace": {
+        "cinderwatch/cinder-php": "self.version",
+        "cinderwatch/cinder-laravel": "self.version",
+        "cinderwatch/cinder-wordpress": "self.version"
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage --min=100",
+        "format": "vendor/bin/pint",
+        "analyse": "vendor/bin/phpstan analyse"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true,
+            "composer/installers": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
